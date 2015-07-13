@@ -1,11 +1,11 @@
 # winutils
 Borderless Window library for Haxe(OpenFL)
 
-How to install:
+#### How to install:
   haxelib install winutils
 
-Requirement:
+#### Requirement:
   Windows x86/x64 (hxcpp windows / neko windows)
 
-How to use:
+#### How to use:
   example/
