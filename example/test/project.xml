@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project>
+	<!-- NMML reference: https://gist.github.com/1763850 -->
+	
+	<!-- metadata, make sure 'package' is at least 3 segments (ie. com.mycompany.myproject) -->
+	<meta title="test" package="test" version="1.0.0" company="" />
+	
+	<!-- output -->
+	<app main="Main" file="test" path="bin" />
+	
+	<window background="#000000" fps="60" />
+	<window width="200" height="150" unless="mobile" />
+	<window orientation="landscape" vsync="false" antialiasing="0" borderless="true" resizable="false" if="cpp" />
+	<window borderless="true" resizable="false" if="neko" />
+	
+	<set name="openfl-legacy" />
+	
+	<!-- classpath, haxe libs -->
+	<source path="src" />
+	<haxelib name="openfl" />
+	<haxelib name="popupmenu"  if="neko" />
+	<haxelib name="popupmenu"  if="windows" />
+	
+	<!-- assets -->
+	<icon path="assets/openfl.svg" />
+	<assets path="assets/img" rename="img" />
+	
+	<!-- optimize output
+	<haxeflag name="-dce full" /> -->
+	
+</project>

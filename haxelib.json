@@ -1,0 +1,13 @@
+{
+  "name": "winutils",
+  "url": "https://github.com/devil-tamachan/winutils",
+  "license": "MIT",
+  "tags": [],
+  "description": "",
+  "version": "1.0.0",
+  "releasenote": "",
+  "contributors": ["tamachan"],
+  "dependencies": {
+
+  }
+}
