@@ -13,66 +13,74 @@
 
 using namespace winutils;
 
-static void winutils_init ()
+static value winutils_init ()
 {
   Init();
+  return alloc_null();
 }
 DEFINE_PRIM (winutils_init, 0);
 
-static void winutils_exit ()
+static value winutils_exit ()
 {
   Exit();
+  return alloc_null();
 }
 DEFINE_PRIM (winutils_exit, 0);
 
-static void winutils_insertnormalmenu (value uid, value str, value callback)
+static value winutils_insertnormalmenu (value uid, value str, value callback)
 {
-  if(!val_is_string(str) || !val_is_int(uid) || !val_is_function(callback))return;
+  if(!val_is_string(str) || !val_is_int(uid) || !val_is_function(callback))return alloc_null();
   const char *_str = val_string(str);
   int _uid = val_int(uid);
   InsertNormalMenu(_uid, _str, callback);
+  return alloc_null();
 }
 DEFINE_PRIM (winutils_insertnormalmenu, 3);
 
-static void winutils_insertseparatormenu ()
+static value winutils_insertseparatormenu ()
 {
   InsertSeparatorMenu();
+  return alloc_null();
 }
 DEFINE_PRIM (winutils_insertseparatormenu, 0);
 
-static void winutils_setradio (value iFirst, value iLast, value iCheck)
+static value winutils_setradio (value iFirst, value iLast, value iCheck)
 {
-  if(!val_is_int(iFirst) || !val_is_int(iLast) || !val_is_int(iCheck))return;
+  if(!val_is_int(iFirst) || !val_is_int(iLast) || !val_is_int(iCheck))return alloc_null();
   int _iFirst = val_int(iFirst);
   int _iLast = val_int(iLast);
   int _iCheck = val_int(iCheck);
   SetRadio(_iFirst, _iLast, _iCheck);
+  return alloc_null();
 }
 DEFINE_PRIM (winutils_setradio, 3);
 
-static void winutils_setenable (value iPos, value iEnable)
+static value winutils_setenable (value iPos, value iEnable)
 {
-  if(!val_is_int(iPos) || !val_is_int(iEnable))return;
+  if(!val_is_int(iPos) || !val_is_int(iEnable))return alloc_null();
   int _iPos = val_int(iPos);
   int _iEnable = val_int(iEnable);
   SetEnable(_iPos, _iEnable);
+  return alloc_null();
 }
 DEFINE_PRIM (winutils_setenable, 2);
 
-static void winutils_setcheck (value iPos, value bCheck)
+static value winutils_setcheck (value iPos, value bCheck)
 {
-  if(!val_is_int(iPos) || !val_is_bool(bCheck))return;
+  if(!val_is_int(iPos) || !val_is_bool(bCheck))return alloc_null();
   int _iPos = val_int(iPos);
   bool _bCheck = val_bool(bCheck);
   SetCheck(_iPos, _bCheck);
+  return alloc_null();
 }
 DEFINE_PRIM (winutils_setcheck, 2);
 
-static void winutils_enablermousedrag (value bEnable)
+static value winutils_enablermousedrag (value bEnable)
 {
-  if(!val_is_bool(bEnable))return;
+  if(!val_is_bool(bEnable))return alloc_null();
   bool _bEnable = val_bool(bEnable);
   EnableRMouseDrag(_bEnable);
+  return alloc_null();
 }
 DEFINE_PRIM (winutils_enablermousedrag, 1);
 

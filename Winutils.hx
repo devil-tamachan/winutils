@@ -33,7 +33,6 @@ class Winutils
   {
     winutils_setradio(iFirst, iLast, iCheck);
   }
-  /* Strange Exception*/
   public static var MF_ENABLED = 0;
   public static var MF_GRAYED = 1;
   public static var MF_DISABLED = 2;

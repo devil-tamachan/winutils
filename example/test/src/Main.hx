@@ -4,7 +4,7 @@ import openfl.display.Sprite;
 import openfl.Lib;
 import flash.system.System;
 import Std;
-import Popupmenu;
+import Winutils;
 
 /**
  * ...
@@ -34,15 +34,15 @@ class Main extends Sprite
 	{
 		var s = cid - cid1x + 1;
 		setWndScale(s);
-		Popupmenu.SetRadio(cid1x, cidFullscreen, cid);
-		//Popupmenu.SetEnable(cid, Popupmenu.MF_GRAYED);Uncaught exception
-		//Popupmenu.SetCheck(cid, true);Uncaught exception
+		Winutils.SetRadio(cid1x, cidFullscreen, cid);
+		//Winutils.SetEnable(cid, Winutils.MF_GRAYED);
+		//Winutils.SetCheck(cid, true);
 	}
 	public function fullscreen(cid:Int):Void
 	{
 		bFullscreen = !bFullscreen;
 		stage.setFullscreen(bFullscreen);
-		Popupmenu.SetRadio(cid1x, cidFullscreen, cidFullscreen);
+		Winutils.SetRadio(cid1x, cidFullscreen, cidFullscreen);
 	}
 	public function myexit(cid:Int):Void
 	{
@@ -51,16 +51,16 @@ class Main extends Sprite
 	
 	public function initPopupmenu():Void
 	{
-		Popupmenu.init();
-		Popupmenu.InsertNormalMenu(cid1x, "x1", scaleWnd);
-		Popupmenu.InsertNormalMenu(cid2x, "x2", scaleWnd);
-		Popupmenu.InsertNormalMenu(cid3x, "x3", scaleWnd);
-		Popupmenu.InsertNormalMenu(cid4x, "x4", scaleWnd);
-		Popupmenu.InsertNormalMenu(cidFullscreen, "Fullscreen", fullscreen);
-		Popupmenu.InsertSeparatorMenu();
-		Popupmenu.InsertNormalMenu(cidExit, "Exit", myexit);
+		Winutils.init();
+		Winutils.InsertNormalMenu(cid1x, "x1", scaleWnd);
+		Winutils.InsertNormalMenu(cid2x, "x2", scaleWnd);
+		Winutils.InsertNormalMenu(cid3x, "x3", scaleWnd);
+		Winutils.InsertNormalMenu(cid4x, "x4", scaleWnd);
+		Winutils.InsertNormalMenu(cidFullscreen, "Fullscreen", fullscreen);
+		Winutils.InsertSeparatorMenu();
+		Winutils.InsertNormalMenu(cidExit, "Exit", myexit);
 		
-		Popupmenu.SetRadio(cid1x, cidFullscreen, cid1x);
+		Winutils.SetRadio(cid1x, cidFullscreen, cid1x);
 		//Winutils.EnableRMouseDrag(false);
 	}
 
@@ -68,6 +68,9 @@ class Main extends Sprite
 	{
 		super();
 		
+#if neko //http://community.openfl.org/t/strange-uncaught-exception-on-nekovm/1815/8
+    cpp.Prime.nekoInit("winutils");
+#end
 		initPopupmenu();
 	}
 

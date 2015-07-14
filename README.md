@@ -1,5 +1,5 @@
-# winutils
-Borderless Window library for Haxe(OpenFL)
+# winutils 1,0,1 (2015/07/14)
+## Borderless Window library for Haxe(OpenFL)
 
 #### How to install:
   haxelib install winutils
@@ -14,16 +14,13 @@ Borderless Window library for Haxe(OpenFL)
 #### How to use:
   example/
 
-#### Known Error:
-  SetEnable/SetCheck crash on Neko.
+[^1]: Require to hide command-line. Open neko-windows (or neko-windows64) by CFF Explorer. Change subsystem to Windows GUI.
 
 #### Screenshot:
   ![](http://i.imgur.com/dE8oFRG.jpg)
 
-[^1]: Require to hide command-line. Open neko-windows (or neko-windows64) by CFF Explorer. Change subsystem to Windows GUI.
 
-
-OpenFL用枠無しウィンドウライブラリ
+## OpenFL用枠無しウィンドウライブラリ
 
 #### インストールコマンド:
   haxelib install winutils
@@ -37,8 +34,5 @@ OpenFL用枠無しウィンドウライブラリ
 
 #### 使い方:
   example/にサンプルがあるのでそっち見て
-
-#### 既知のバグ:
-  NekoビルドでSetEnable/SetCheckを呼び出すと謎エラーで死ぬ。今のところ原因わからず。
 
 [^2]: コマンドライン消してね。C:\HaxeToolkit\haxe\lib\lime\[2,x,x]\legacy\templates\neko\bin\neko-windows (or 64)、またはC:\HaxeToolkit\haxe\lib\lime\2,4,7\templates\neko\bin\neko-windows (or 64)を.exeに名前変更、CFF ExplorerでサブシステムをWindowsに変更して名前戻して完了

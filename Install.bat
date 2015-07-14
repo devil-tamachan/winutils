@@ -1,3 +1,8 @@
-"C:\Program Files\7-Zip\7z.exe" a winutils-1,0,0.zip ndll project Build.bat Install.bat haxelib.json include.xml winutils.hx example
-haxelib local winutils-1,0,0.zip
+cd project
+del /Q "obj"
+cd ..
+set WINUTILS_VER=1,0,1
+del /Q "winutils-%WINUTILS_VER%.zip"
+"C:\Program Files\7-Zip\7z.exe" a winutils-%WINUTILS_VER%.zip ndll project Build.bat Install.bat haxelib.json include.xml winutils.hx example
+haxelib local winutils-%WINUTILS_VER%.zip
 pause
