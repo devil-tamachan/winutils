@@ -1,7 +1,7 @@
 cd project
-del /Q "obj"
+rmdir /S /Q obj
 cd ..
-set WINUTILS_VER=1,0,1
+set WINUTILS_VER=1,0,2
 del /Q "winutils-%WINUTILS_VER%.zip"
 "C:\Program Files\7-Zip\7z.exe" a winutils-%WINUTILS_VER%.zip ndll project Build.bat Install.bat haxelib.json include.xml winutils.hx example
 haxelib local winutils-%WINUTILS_VER%.zip
