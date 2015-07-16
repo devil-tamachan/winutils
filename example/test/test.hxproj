@@ -8,7 +8,7 @@
     <movie fps="0" />
     <movie width="0" />
     <movie height="0" />
-    <movie version="1" />
+    <movie version="0" />
     <movie minorVersion="0" />
     <movie platform="Lime" />
     <movie background="#FFFFFF" />
@@ -16,15 +16,15 @@
   </output>
   <!-- Other classes to be compiled into your SWF -->
   <classpaths>
-    <class path="C:\HaxeToolkit\haxe\lib\openfl\3,1,1" />
+    <class path="C:\HaxeToolkit\haxe\lib\openfl\3,1,2" />
     <class path="C:\HaxeToolkit\haxe\lib\lime\2,4,7" />
-    <class path="C:\HaxeToolkit\haxe\lib\popupmenu\1,0,0" />
+    <class path="C:\HaxeToolkit\haxe\lib\winutils\1,0,1" />
     <class path="src" />
     <class path="bin\windows\neko\haxe" />
   </classpaths>
   <!-- Build options -->
   <build>
-    <option directives="openfl=3.1.1&#xA;lime=2.4.7&#xA;popupmenu=1.0.0&#xA;openfl-next&#xA;tools=2.4.7&#xA;no-compilation&#xA;native&#xA;lime-native&#xA;openfl-native&#xA;windows&#xA;desktop" />
+    <option directives="openfl=3.1.2&#xA;lime=2.4.7&#xA;winutils=1.0.1&#xA;openfl-next&#xA;tools=2.4.7&#xA;no-compilation&#xA;native&#xA;lime-native&#xA;openfl-native&#xA;windows&#xA;desktop" />
     <option flashStrict="False" />
     <option noInlineOnDebug="False" />
     <option mainClass="ApplicationMain" />

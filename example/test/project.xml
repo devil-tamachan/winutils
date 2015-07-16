@@ -18,8 +18,8 @@
 	<!-- classpath, haxe libs -->
 	<source path="src" />
 	<haxelib name="openfl" />
-	<haxelib name="popupmenu"  if="neko" />
-	<haxelib name="popupmenu"  if="windows" />
+	<haxelib name="winutils"  if="neko" />
+	<haxelib name="winutils"  if="windows" />
 	
 	<!-- assets -->
 	<icon path="assets/openfl.svg" />
