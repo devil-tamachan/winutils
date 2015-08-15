@@ -8,14 +8,20 @@ namespace winutils
 {
   struct MYTLSDATA
   {
-    HWND hMainWnd = NULL;
-    WNDPROC hOldWndProc = NULL;
-    HMENU hPopupMenu = NULL;
+    HWND hMainWnd;// = NULL;
+    WNDPROC hOldWndProc;// = NULL;
+    HMENU hPopupMenu;// = NULL;
     
-    DWORD numMenu = 0;
-    AutoGCRoot **bufFunc = NULL;
-    int *bufUid = NULL;
-    bool bRMouseDrag = true;
+    DWORD numMenu;// = 0;
+    AutoGCRoot **bufFunc;// = NULL;
+    int *bufUid;// = NULL;
+    bool bLMouseDrag;// = true;
+    bool bLMouseThru;// = true;
+    int xMin;
+    int xMax;
+    int yMin;
+    int yMax;
+    bool bAntiFlicker;
   };
   DECLARE_TLS_DATA(struct MYTLSDATA, tls_mydata);
   
@@ -70,15 +76,17 @@ namespace winutils
   
   LRESULT CALLBACK PopupWndProc(HWND hWnd, UINT uMsg, WPARAM wp, LPARAM lp)
   {
+    struct MYTLSDATA *mydata = tls_mydata;
+    if(mydata==NULL)return 0;
+    
     switch(uMsg)
     {
+      case WM_ERASEBKGND:
+        if(mydata->bAntiFlicker)return 1;
+        break;
       case WM_COMMAND:
       {
         WORD uid = LOWORD(wp);
-        
-        //tls
-        struct MYTLSDATA *mydata = tls_mydata;
-        if(mydata==NULL)break;
         
         for(int i=0; i<mydata->numMenu; i++)
         {
@@ -92,21 +100,24 @@ namespace winutils
       }
       case WM_LBUTTONDOWN:
       {
-        struct MYTLSDATA *mydata = tls_mydata;
-        if(mydata==NULL)break;
-        
-        if(mydata->bRMouseDrag)
+        if(mydata->bLMouseDrag)
         {
-          SendMessage(hWnd, WM_NCLBUTTONDOWN, HTCAPTION, 0);
-          return 0;
+          WORD x = LOWORD(lp);
+          if(mydata->xMin != -1 && mydata->xMin > x)break;
+          if(mydata->xMax != -1 && mydata->xMax < x)break;
+          WORD y = HIWORD(lp);
+          if(mydata->yMin != -1 && mydata->yMin > y)break;
+          if(mydata->yMax != -1 && mydata->yMax < y)break;
+          LRESULT lr = 0;
+          if(mydata->bLMouseThru && mydata->hOldWndProc)lr = CallWindowProc(mydata->hOldWndProc, hWnd, uMsg, wp, lp);
+          SendMessage(hWnd, WM_NCLBUTTONDOWN, HTCAPTION, lp);
+          //SendMessage(hWnd, WM_SYSCOMMAND, 0xF012/*SC_DRAGMOVE*/, 0);
+          return lr;
         }
       }
         break;
       case WM_RBUTTONDOWN:
       {
-        struct MYTLSDATA *mydata = tls_mydata;
-        if(mydata==NULL)break;
-        
         if(mydata->hPopupMenu!=NULL)
         {
           SetForegroundWindow(hWnd);
@@ -117,9 +128,6 @@ namespace winutils
         break;// pass msg to hOldWndProc
       }
     }
-    
-    struct MYTLSDATA *mydata = tls_mydata;
-    if(mydata==NULL)return 0;
     
     if(mydata->hOldWndProc)return CallWindowProc(mydata->hOldWndProc, hWnd, uMsg, wp, lp);
     else return 0;
@@ -136,7 +144,13 @@ namespace winutils
     mydata->numMenu = 0;
     mydata->bufFunc = NULL;
     mydata->bufUid = NULL;
-    mydata->bRMouseDrag = true;
+    mydata->bLMouseDrag = true;
+    mydata->bLMouseThru = true;
+    mydata->xMin = -1;
+    mydata->xMax = -1;
+    mydata->yMin = -1;
+    mydata->yMax = -1;
+    mydata->bAntiFlicker = false;
   }
   
   void Init()
@@ -212,12 +226,47 @@ namespace winutils
     int ret = CheckMenuItem(mydata->hPopupMenu, iPos, MF_BYCOMMAND | (bCheck ? MF_CHECKED : MF_UNCHECKED));
   }
   
-  void EnableRMouseDrag(bool bCheck)
+  void EnableLMouseDrag(bool bCheck)
   {
     struct MYTLSDATA *mydata = tls_mydata;
     if(mydata==NULL)_InitTlsData();
     
-    mydata->bRMouseDrag = bCheck;
+    mydata->bLMouseDrag = bCheck;
+  }
+  
+  void EnableLMouseThru(bool bThru)
+  {
+    struct MYTLSDATA *mydata = tls_mydata;
+    if(mydata==NULL)_InitTlsData();
+    
+    mydata->bLMouseThru = bThru;
+  }
+  
+  void SetLMouseDragClip(int xMin, int xMax, int yMin, int yMax)
+  {
+    struct MYTLSDATA *mydata = tls_mydata;
+    if(mydata==NULL)_InitTlsData();
+    
+    mydata->xMin = xMin;
+    mydata->xMax = xMax;
+    mydata->yMin = yMin;
+    mydata->yMax = yMax;
+  }
+  
+  void SendWM_NCLBUTTONDOWN()
+  {
+    struct MYTLSDATA *mydata = tls_mydata;
+    if(mydata==NULL)_InitTlsData();
+    
+    SendMessage(mydata->hMainWnd, WM_NCLBUTTONDOWN, HTCAPTION, 0);
+  }
+  
+  void EnableAntiFlicker(bool bEnable)
+  {
+    struct MYTLSDATA *mydata = tls_mydata;
+    if(mydata==NULL)_InitTlsData();
+    
+    mydata->bAntiFlicker = bEnable;
   }
   
   void releaseBufUid()

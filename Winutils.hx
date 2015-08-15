@@ -44,9 +44,28 @@ class Winutils
   {
     winutils_setcheck(iPos, bCheck);
   }
-  public static function EnableRMouseDrag(bEnable:Bool):Void
+  public static function EnableLMouseDrag(bEnable:Bool):Void
   {
-    winutils_enablermousedrag(bEnable);
+    winutils_enablelmousedrag(bEnable);
+  }
+  public static function EnableLMouseThru(bThru:Bool):Void
+  {
+    winutils_enablelmousethru(bThru);
+  }
+  
+  public static function SetLMouseDragClip(xMin:Int, xMax:Int, yMin:Int, yMax:Int):Void
+  {
+    winutils_setlmousedragclip(xMin, xMax, yMin, yMax);
+  }
+  
+  public static function SendWM_NCLBUTTONDOWN():Void
+  {
+    winutils_sendnclbuttondown();
+  }
+  
+  public static function EnableAntiFlicker(bEnable:Bool):Void
+  {
+    winutils_enableantiflicker(bEnable);
   }
   
   
@@ -57,5 +76,9 @@ class Winutils
   private static var winutils_setradio = Lib.load ("winutils", "winutils_setradio", 3);
   private static var winutils_setenable = Lib.load ("winutils", "winutils_setenable", 2);
   private static var winutils_setcheck = Lib.load ("winutils", "winutils_setcheck", 2);
-  private static var winutils_enablermousedrag = Lib.load ("winutils", "winutils_enablermousedrag", 1);
+  private static var winutils_enablelmousedrag = Lib.load ("winutils", "winutils_enablelmousedrag", 1);
+  private static var winutils_enablelmousethru = Lib.load ("winutils", "winutils_enablelmousethru", 1);
+  private static var winutils_setlmousedragclip = Lib.load ("winutils", "winutils_setlmousedragclip", 4);
+  private static var winutils_sendnclbuttondown = Lib.load ("winutils", "winutils_sendnclbuttondown", 0);
+  private static var winutils_enableantiflicker = Lib.load ("winutils", "winutils_enableantiflicker", 1);
 }

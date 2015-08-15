@@ -4,7 +4,9 @@ import openfl.display.Sprite;
 import openfl.Lib;
 import flash.system.System;
 import Std;
+#if (neko || windows)
 import Winutils;
+#end
 
 /**
  * ...
@@ -12,6 +14,7 @@ import Winutils;
  */
 class Main extends Sprite 
 {
+#if (neko || windows)
 	var defaultW:Float = 200;
 	var defaultH:Float = 150;
 	var bFullscreen = false;
@@ -63,15 +66,18 @@ class Main extends Sprite
 		Winutils.SetRadio(cid1x, cidFullscreen, cid1x);
 		//Winutils.EnableRMouseDrag(false);
 	}
+#end
 
 	public function new() 
 	{
 		super();
 		
+#if (neko || windows)
 #if neko //http://community.openfl.org/t/strange-uncaught-exception-on-nekovm/1815/8
     cpp.Prime.nekoInit("winutils");
 #end
 		initPopupmenu();
+#end
 	}
 
 }

@@ -1,4 +1,4 @@
-# winutils 1,0,1 (2015/07/14)
+# winutils 1,0,3 (2015/08/15)
 ## Borderless Window library for Haxe(OpenFL)
 
 #### How to install:

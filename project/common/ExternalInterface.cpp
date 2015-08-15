@@ -75,14 +75,47 @@ static value winutils_setcheck (value iPos, value bCheck)
 }
 DEFINE_PRIM (winutils_setcheck, 2);
 
-static value winutils_enablermousedrag (value bEnable)
+static value winutils_enablelmousedrag (value bEnable)
 {
   if(!val_is_bool(bEnable))return alloc_null();
   bool _bEnable = val_bool(bEnable);
-  EnableRMouseDrag(_bEnable);
+  EnableLMouseDrag(_bEnable);
   return alloc_null();
 }
-DEFINE_PRIM (winutils_enablermousedrag, 1);
+DEFINE_PRIM (winutils_enablelmousedrag, 1);
+
+static value winutils_enablelmousethru (value bThru)
+{
+  if(!val_is_bool(bThru))return alloc_null();
+  bool _bThru = val_bool(bThru);
+  EnableLMouseThru(_bThru);
+  return alloc_null();
+}
+DEFINE_PRIM (winutils_enablelmousethru, 1);
+
+static value winutils_setlmousedragclip (value xMin, value xMax, value yMin, value yMax)
+{
+  if(!val_is_int(xMin) || !val_is_int(xMax) || !val_is_int(yMin) || !val_is_int(yMax))return alloc_null();
+  SetLMouseDragClip(val_int(xMin), val_int(xMax), val_int(yMin), val_int(yMax));
+  return alloc_null();
+}
+DEFINE_PRIM (winutils_setlmousedragclip, 4);
+
+static value winutils_sendnclbuttondown ()
+{
+  SendWM_NCLBUTTONDOWN();
+  return alloc_null();
+}
+DEFINE_PRIM (winutils_sendnclbuttondown, 0);
+
+static value winutils_enableantiflicker (value bEnable)
+{
+  if(!val_is_bool(bEnable))return alloc_null();
+  bool _bEnable = val_bool(bEnable);
+  EnableAntiFlicker(_bEnable);
+  return alloc_null();
+}
+DEFINE_PRIM (winutils_enableantiflicker, 1);
 
 extern "C" void winutils_main () {
 	
